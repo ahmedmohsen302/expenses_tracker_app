@@ -2,7 +2,12 @@ import 'package:expenses_tracker_app/views/home_view.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MaterialApp(home: ExpensesTrackerApp()));
+  runApp(
+    const MaterialApp(
+      home: ExpensesTrackerApp(),
+      debugShowCheckedModeBanner: false,
+    ),
+  );
 }
 
 class ExpensesTrackerApp extends StatelessWidget {

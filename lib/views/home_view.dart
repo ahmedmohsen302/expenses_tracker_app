@@ -1,4 +1,5 @@
 import 'package:expenses_tracker_app/models/expenses_model.dart';
+import 'package:expenses_tracker_app/widgets/expenses_list/expenses_list.dart';
 import 'package:flutter/material.dart';
 
 class HomeView extends StatefulWidget {
@@ -31,9 +32,13 @@ class _HomeViewState extends State<HomeView> {
         category: Category.travel,
       ),
     ];
-    return Scaffold(body: Column(children: [
-
+    return Scaffold(
+      body: Column(
+        children: [
+          Text('The chart'),
+          Expanded(child: ExpensesList(expenses: expense)),
         ],
-      ));
+      ),
+    );
   }
 }
