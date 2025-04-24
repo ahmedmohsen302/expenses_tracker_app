@@ -19,7 +19,11 @@ class ExpenseItem extends StatelessWidget {
                 Text('\$ ${expense.amount.toStringAsFixed(2)}'),
                 Spacer(),
                 Row(
-                  children: [Icon(Icons.alarm), Text(expense.date.toString())],
+                  children: [
+                    Icon(categoryIcon[expense.category]),
+                    SizedBox(width: 5),
+                    Text(expense.formattedDate),
+                  ],
                 ),
               ],
             ),
