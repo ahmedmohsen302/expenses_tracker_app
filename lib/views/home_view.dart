@@ -41,6 +41,7 @@ class _HomeViewState extends State<HomeView> {
           IconButton(
             onPressed:
                 () => showModalBottomSheet(
+                  isScrollControlled: true,
                   context: context,
                   builder:
                       (context) => ModalSheet(
@@ -58,7 +59,34 @@ class _HomeViewState extends State<HomeView> {
       body: Column(
         children: [
           Text('The chart'),
-          Expanded(child: ExpensesList(expenses: expenses)),
+          Expanded(
+            child:
+                expenses.isNotEmpty
+                    ? ExpensesList(
+                      expenses: expenses,
+                      onRemoveExpense: (ExpensesModel expense) {
+                        final expenseIndex = expenses.indexOf(expense);
+                        setState(() {
+                          expenses.remove(expense);
+                        });
+                        ScaffoldMessenger.of(context).clearSnackBars();
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            duration: Duration(seconds: 3),
+                            content: Text('Expense deleted'),
+                            action: SnackBarAction(
+                              label: 'Undo',
+                              onPressed:
+                                  () => setState(() {
+                                    expenses.insert(expenseIndex, expense);
+                                  }),
+                            ),
+                          ),
+                        );
+                      },
+                    )
+                    : Center(child: Text('There is no expenses, try add some')),
+          ),
         ],
       ),
     );

@@ -25,7 +25,7 @@ class _ModalSheetState extends State<ModalSheet> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12),
+      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 48),
       child: Column(
         children: [
           TextField(
@@ -137,6 +137,7 @@ class _ModalSheetState extends State<ModalSheet> {
                       category: selectedCategory,
                     ),
                   );
+                  Navigator.pop(context);
                 },
                 child: Text('Save'),
               ),
