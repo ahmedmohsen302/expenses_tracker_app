@@ -13,17 +13,6 @@ class _ModalSheetState extends State<ModalSheet> {
   final amountController = TextEditingController();
   DateTime? selectedDate;
   Category selectedCategory = Category.food;
-  void showDate() async {
-    final now = DateTime.now();
-    final pickedDate = await showDatePicker(
-      context: context,
-      firstDate: DateTime(now.year - 1, now.month, now.day),
-      lastDate: now,
-    );
-    setState(() {
-      selectedDate = pickedDate;
-    });
-  }
 
   @override
   void dispose() {
@@ -67,7 +56,17 @@ class _ModalSheetState extends State<ModalSheet> {
                           : formmater.format(selectedDate!),
                     ),
                     IconButton(
-                      onPressed: showDate,
+                      onPressed: () async {
+                        final now = DateTime.now();
+                        final pickedDate = await showDatePicker(
+                          context: context,
+                          firstDate: DateTime(now.year - 1, now.month, now.day),
+                          lastDate: now,
+                        );
+                        setState(() {
+                          selectedDate = pickedDate;
+                        });
+                      },
                       icon: Icon(Icons.calendar_month),
                     ),
                   ],
