@@ -1,5 +1,6 @@
 import 'package:expenses_tracker_app/models/expenses_model.dart';
 import 'package:expenses_tracker_app/widgets/expenses_list/expenses_list.dart';
+import 'package:expenses_tracker_app/widgets/modal_sheet.dart';
 import 'package:flutter/material.dart';
 
 class HomeView extends StatefulWidget {
@@ -33,6 +34,19 @@ class _HomeViewState extends State<HomeView> {
       ),
     ];
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Expense tracker'),
+        actions: [
+          IconButton(
+            onPressed:
+                () => showModalBottomSheet(
+                  context: context,
+                  builder: (context) => ModalSheet(),
+                ),
+            icon: Icon(Icons.add),
+          ),
+        ],
+      ),
       body: Column(
         children: [
           Text('The chart'),
