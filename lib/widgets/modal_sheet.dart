@@ -2,7 +2,8 @@ import 'package:expenses_tracker_app/models/expenses_model.dart';
 import 'package:flutter/material.dart';
 
 class ModalSheet extends StatefulWidget {
-  const ModalSheet({super.key});
+  const ModalSheet({super.key, required this.onAddExpense});
+  final void Function(ExpensesModel expense) onAddExpense;
 
   @override
   State<ModalSheet> createState() => _ModalSheetState();
@@ -102,7 +103,43 @@ class _ModalSheetState extends State<ModalSheet> {
                 },
                 child: Text('Cancel'),
               ),
-              ElevatedButton(onPressed: () {}, child: Text('Save')),
+              ElevatedButton(
+                onPressed: () {
+                  final pickedAmount = double.tryParse(amountController.text);
+                  final isAmountValid =
+                      pickedAmount == null || pickedAmount <= 0;
+                  if (isAmountValid ||
+                      titleController.text.isEmpty ||
+                      selectedDate == null) {
+                    showDialog(
+                      context: context,
+                      builder:
+                          (context) => AlertDialog(
+                            actions: [
+                              TextButton(
+                                onPressed: () => Navigator.pop(context),
+                                child: Text('Okay'),
+                              ),
+                            ],
+                            title: Text('Invalid input'),
+                            content: Text(
+                              'Please make sure your title, amount, and date is valid',
+                            ),
+                          ),
+                    );
+                    return;
+                  }
+                  widget.onAddExpense(
+                    ExpensesModel(
+                      title: titleController.text,
+                      amount: pickedAmount,
+                      date: selectedDate!,
+                      category: selectedCategory,
+                    ),
+                  );
+                },
+                child: Text('Save'),
+              ),
             ],
           ),
         ],

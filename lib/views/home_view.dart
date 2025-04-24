@@ -11,28 +11,29 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
+  List<ExpensesModel> expenses = [
+    ExpensesModel(
+      title: 'pizza',
+      amount: 150,
+      date: DateTime.now(),
+      category: Category.food,
+    ),
+    ExpensesModel(
+      title: 'cinema',
+      amount: 200,
+      date: DateTime.now(),
+      category: Category.liesure,
+    ),
+    ExpensesModel(
+      title: 'tour',
+      amount: 1000,
+      date: DateTime.now(),
+      category: Category.travel,
+    ),
+  ];
+
   @override
   Widget build(BuildContext context) {
-    List<ExpensesModel> expense = [
-      ExpensesModel(
-        title: 'pizza',
-        amount: 150,
-        date: DateTime.now(),
-        category: Category.food,
-      ),
-      ExpensesModel(
-        title: 'cinema',
-        amount: 200,
-        date: DateTime.now(),
-        category: Category.liesure,
-      ),
-      ExpensesModel(
-        title: 'tour',
-        amount: 1000,
-        date: DateTime.now(),
-        category: Category.travel,
-      ),
-    ];
     return Scaffold(
       appBar: AppBar(
         title: Text('Expense tracker'),
@@ -41,7 +42,14 @@ class _HomeViewState extends State<HomeView> {
             onPressed:
                 () => showModalBottomSheet(
                   context: context,
-                  builder: (context) => ModalSheet(),
+                  builder:
+                      (context) => ModalSheet(
+                        onAddExpense: (ExpensesModel expense) {
+                          setState(() {
+                            expenses.add(expense);
+                          });
+                        },
+                      ),
                 ),
             icon: Icon(Icons.add),
           ),
@@ -50,7 +58,7 @@ class _HomeViewState extends State<HomeView> {
       body: Column(
         children: [
           Text('The chart'),
-          Expanded(child: ExpensesList(expenses: expense)),
+          Expanded(child: ExpensesList(expenses: expenses)),
         ],
       ),
     );
