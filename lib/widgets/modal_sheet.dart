@@ -79,6 +79,8 @@ class _ModalSheetState extends State<ModalSheet> {
           Row(
             children: [
               DropdownButton(
+                borderRadius: BorderRadius.circular(16),
+                alignment: Alignment.center,
                 value: selectedCategory,
                 items:
                     Category.values.map((category) {
