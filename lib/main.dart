@@ -7,6 +7,32 @@ void main() {
     MaterialApp(
       home: ExpensesTrackerApp(),
       debugShowCheckedModeBanner: false,
+      darkTheme: ThemeData.dark().copyWith(
+        colorScheme: kDarkColorScheme,
+        appBarTheme: AppBarTheme().copyWith(
+          backgroundColor: kDarkColorScheme.onPrimary,
+          centerTitle: true,
+          foregroundColor: kDarkColorScheme.primary,
+          titleTextStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+        ),
+        cardTheme: CardTheme().copyWith(
+          color: kDarkColorScheme.onPrimary,
+          shadowColor: kDarkColorScheme.primary,
+          margin: EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+          surfaceTintColor: kDarkColorScheme.surfaceTint,
+        ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: kDarkColorScheme.onPrimaryContainer,
+            foregroundColor: kDarkColorScheme.primaryContainer,
+          ),
+        ),
+        bottomSheetTheme: BottomSheetThemeData().copyWith(
+          backgroundColor: kDarkColorScheme.onPrimary,
+          surfaceTintColor: kDarkColorScheme.surfaceTint,
+          dragHandleColor: kDarkColorScheme.inversePrimary,
+        ),
+      ),
       theme: ThemeData().copyWith(
         colorScheme: kColorScheme,
         appBarTheme: AppBarTheme().copyWith(
