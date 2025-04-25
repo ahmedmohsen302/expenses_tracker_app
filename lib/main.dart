@@ -23,12 +23,12 @@ void main() {
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
-            backgroundColor: kDarkColorScheme.onPrimaryContainer,
-            foregroundColor: kDarkColorScheme.primaryContainer,
+            backgroundColor: kDarkColorScheme.primaryContainer,
+            foregroundColor: kDarkColorScheme.onPrimaryContainer,
           ),
         ),
         bottomSheetTheme: BottomSheetThemeData().copyWith(
-          backgroundColor: kDarkColorScheme.onPrimary,
+          // backgroundColor: kDarkColorScheme.onPrimary,
           surfaceTintColor: kDarkColorScheme.surfaceTint,
           dragHandleColor: kDarkColorScheme.inversePrimary,
         ),

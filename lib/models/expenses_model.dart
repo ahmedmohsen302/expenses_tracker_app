@@ -33,3 +33,22 @@ class ExpensesModel {
     required this.category,
   }) : id = uuid.v4();
 }
+
+class ExpensesBucket {
+  final Category category;
+  final List<ExpensesModel> expenses;
+
+  double get totalExpenses {
+    double sum = 0;
+    for (final expense in expenses) {
+      sum += expense.amount;
+    }
+    return sum;
+  }
+
+  ExpensesBucket({required this.category, required this.expenses});
+
+  ExpensesBucket.forCategory(List<ExpensesModel> allExpenses, this.category)
+    : expenses =
+          allExpenses.where((expense) => expense.category == category).toList();
+}
