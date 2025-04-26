@@ -1,4 +1,5 @@
 import 'package:expenses_tracker_app/models/expenses_model.dart';
+import 'package:expenses_tracker_app/widgets/chart/chart.dart';
 import 'package:expenses_tracker_app/widgets/expenses_list/expenses_list.dart';
 import 'package:expenses_tracker_app/widgets/modal_sheet.dart';
 import 'package:flutter/material.dart';
@@ -58,7 +59,7 @@ class _HomeViewState extends State<HomeView> {
       ),
       body: Column(
         children: [
-          Text('The chart'),
+          Chart(expenses: expenses),
           Expanded(
             child:
                 expenses.isNotEmpty
