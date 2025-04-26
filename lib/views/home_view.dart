@@ -35,6 +35,7 @@ class _HomeViewState extends State<HomeView> {
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
         title: Text('Expense tracker'),
@@ -42,6 +43,8 @@ class _HomeViewState extends State<HomeView> {
           IconButton(
             onPressed:
                 () => showModalBottomSheet(
+                  showDragHandle: true,
+                  useSafeArea: true,
                   isScrollControlled: true,
                   context: context,
                   builder:
@@ -57,39 +60,84 @@ class _HomeViewState extends State<HomeView> {
           ),
         ],
       ),
-      body: Column(
-        children: [
-          Chart(expenses: expenses),
-          Expanded(
-            child:
-                expenses.isNotEmpty
-                    ? ExpensesList(
-                      expenses: expenses,
-                      onRemoveExpense: (ExpensesModel expense) {
-                        final expenseIndex = expenses.indexOf(expense);
-                        setState(() {
-                          expenses.remove(expense);
-                        });
-                        ScaffoldMessenger.of(context).clearSnackBars();
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            duration: Duration(seconds: 3),
-                            content: Text('Expense deleted'),
-                            action: SnackBarAction(
-                              label: 'Undo',
-                              onPressed:
-                                  () => setState(() {
-                                    expenses.insert(expenseIndex, expense);
-                                  }),
+      body:
+          width < 600
+              ? Column(
+                children: [
+                  Chart(expenses: expenses),
+                  Expanded(
+                    child:
+                        expenses.isNotEmpty
+                            ? ExpensesList(
+                              expenses: expenses,
+                              onRemoveExpense: (ExpensesModel expense) {
+                                final expenseIndex = expenses.indexOf(expense);
+                                setState(() {
+                                  expenses.remove(expense);
+                                });
+                                ScaffoldMessenger.of(context).clearSnackBars();
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    duration: Duration(seconds: 3),
+                                    content: Text('Expense deleted'),
+                                    action: SnackBarAction(
+                                      label: 'Undo',
+                                      onPressed:
+                                          () => setState(() {
+                                            expenses.insert(
+                                              expenseIndex,
+                                              expense,
+                                            );
+                                          }),
+                                    ),
+                                  ),
+                                );
+                              },
+                            )
+                            : Center(
+                              child: Text('There is no expenses, try add some'),
                             ),
-                          ),
-                        );
-                      },
-                    )
-                    : Center(child: Text('There is no expenses, try add some')),
-          ),
-        ],
-      ),
+                  ),
+                ],
+              )
+              : Row(
+                children: [
+                  Expanded(child: Chart(expenses: expenses)),
+                  Expanded(
+                    child:
+                        expenses.isNotEmpty
+                            ? ExpensesList(
+                              expenses: expenses,
+                              onRemoveExpense: (ExpensesModel expense) {
+                                final expenseIndex = expenses.indexOf(expense);
+                                setState(() {
+                                  expenses.remove(expense);
+                                });
+                                ScaffoldMessenger.of(context).clearSnackBars();
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    duration: Duration(seconds: 3),
+                                    content: Text('Expense deleted'),
+                                    action: SnackBarAction(
+                                      label: 'Undo',
+                                      onPressed:
+                                          () => setState(() {
+                                            expenses.insert(
+                                              expenseIndex,
+                                              expense,
+                                            );
+                                          }),
+                                    ),
+                                  ),
+                                );
+                              },
+                            )
+                            : Center(
+                              child: Text('There is no expenses, try add some'),
+                            ),
+                  ),
+                ],
+              ),
     );
   }
 }
